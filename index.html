@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Mr.TypeVC Terminal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm/css/xterm.css">
+<style>
+html, body { margin: 0; height: 100%; background: black; }
+#terminal { height: 100%; width: 100%; }
+</style>
+</head>
+<body>
+
+<div id="terminal"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/xterm/lib/xterm.js"></script>
+<script>
+const term = new Terminal({ cursorBlink: true });
+term.open(document.getElementById("terminal"));
+
+// ✅ Connect to your backend WebSocket
+const ws = new WebSocket("wss://terminal-1sch.onrender.com");
+
+ws.onopen = () => term.write("Connected to terminal backend!\r\n");
+ws.onmessage = e => term.write(e.data);
+ws.onclose = () => term.write("\r\nDisconnected from backend.\r\n");
+
+term.onData(data => ws.send(data));
+</script>
+
+</body>
+</html>
