@@ -1,0 +1,12 @@
+{
+  "name": "terminal-backend",
+  "version": "1.0.0",
+  "engines": {
+    "node": "20.x"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "ws": "^8.15.1",
+    "node-pty": "^1.0.0"
+  }
+}
