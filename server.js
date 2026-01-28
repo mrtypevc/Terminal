@@ -8,7 +8,12 @@ const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
 wss.on("connection", ws => {
-    const term = pty.spawn("bash", [], { cols: 80, rows: 24, cwd: "/", env: process.env });
+    const term = pty.spawn("bash", [], {
+        cols: 80,
+        rows: 24,
+        cwd: "/",
+        env: process.env
+    });
 
     term.on("data", data => ws.send(data));
     ws.on("message", msg => term.write(msg));
